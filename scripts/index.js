@@ -1,3 +1,22 @@
+const buttons = document.querySelector(".buttons");
+
+if (document.cookie.split("id=")[1]?.split(";")[0] === undefined) {
+  buttons.innerHTML += `
+    <a href="https://calculus-grade-calculator.pages.dev/login">
+      <div class="button">Login</div>
+    </a>
+  `;
+} else {
+  buttons.innerHTML += `
+    <button id="logout">Logout</button>
+  `;
+
+  document.querySelector("#logout").addEventListener("click", () => {
+    document.cookie = `id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    window.location.href = "https://calculus-grade-calculator.pages.dev";
+  });
+}
+
 function calculate() {
   let quizSum = 0;
   let quizMin = 10;

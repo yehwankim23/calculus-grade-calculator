@@ -1,0 +1,12 @@
+{
+  "name": "calculus-grade-calculator",
+  "version": "1.0.0",
+  "dependencies": {
+    "axios": "latest",
+    "firebase": "latest"
+  },
+  "devDependencies": {
+    "webpack": "latest",
+    "webpack-cli": "latest"
+  }
+}

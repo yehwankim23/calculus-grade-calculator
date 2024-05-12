@@ -63,6 +63,18 @@ a {
   align-items: flex-start;
 }
 
+.button {
+  margin: 0 2.5vmin;
+  border: 1px solid #222;
+  border-radius: 1vmin;
+  width: 15vmin;
+  height: 5vmin;
+  background-color: white;
+  font-size: 3vmin;
+  color: #222;
+  cursor: pointer;
+}
+
 .content {
   height: 75vmin;
   flex-direction: row;
