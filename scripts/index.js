@@ -108,9 +108,9 @@ if (id === undefined) {
   `;
 } else {
   buttons.innerHTML += `
-    <button id="logout">Logout</button>
-    <button id="save">Save</button>
-    <button id="load">Load</button>
+    <div id="logout" class="button">Logout</div>
+    <div id="save" class="button">Save</div>
+    <div id="load" class="button">Load</div>
   `;
 
   document.querySelector("#logout").addEventListener("click", () => {
