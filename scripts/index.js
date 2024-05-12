@@ -38,50 +38,6 @@ const inputs = {
   quiz11: document.querySelector("#quiz11"),
 };
 
-if (id === undefined) {
-  buttons.innerHTML += `
-    <a href="https://calculus-grade-calculator.pages.dev/login">
-      <div class="button">Login</div>
-    </a>
-  `;
-} else {
-  buttons.innerHTML += `
-    <button id="logout">Logout</button>
-    <button id="save">Save</button>
-  `;
-
-  document.querySelector("#logout").addEventListener("click", () => {
-    document.cookie = `id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    window.location.href = "https://calculus-grade-calculator.pages.dev";
-  });
-
-  document.querySelector("#save").addEventListener("click", async () => {
-    await updateDoc(doc(firestore, "users", id), {
-      scores: {
-        attendance: inputs["attendance"].value,
-        homework: inputs["homework"].value,
-        midterm1: inputs["midterm1"].value,
-        midterm2: inputs["midterm2"].value,
-        finalExam: inputs["finalExam"].value,
-        extraCredit: inputs["extraCredit"].value,
-        quiz1: inputs["quiz1"].value,
-        quiz2: inputs["quiz2"].value,
-        quiz3: inputs["quiz3"].value,
-        quiz4: inputs["quiz4"].value,
-        quiz5: inputs["quiz5"].value,
-        quiz6: inputs["quiz6"].value,
-        quiz7: inputs["quiz7"].value,
-        quiz8: inputs["quiz8"].value,
-        quiz9: inputs["quiz9"].value,
-        quiz10: inputs["quiz10"].value,
-        quiz11: inputs["quiz11"].value,
-      },
-    });
-
-    alert("Saved");
-  });
-}
-
 function calculate() {
   let quizSum = 0;
   let quizMin = 10;
@@ -142,6 +98,77 @@ function calculate() {
   } else if (finalScore >= 70) {
     document.querySelector("#c-minus").classList.add("final-grade");
   }
+}
+
+if (id === undefined) {
+  buttons.innerHTML += `
+    <a href="https://calculus-grade-calculator.pages.dev/login">
+      <div class="button">Login</div>
+    </a>
+  `;
+} else {
+  buttons.innerHTML += `
+    <button id="logout">Logout</button>
+    <button id="save">Save</button>
+    <button id="load">Load</button>
+  `;
+
+  document.querySelector("#logout").addEventListener("click", () => {
+    document.cookie = `id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    window.location.href = "https://calculus-grade-calculator.pages.dev";
+  });
+
+  const userDocument = doc(firestore, "users", id);
+
+  document.querySelector("#save").addEventListener("click", async () => {
+    await updateDoc(userDocument, {
+      scores: {
+        attendance: inputs["attendance"].value,
+        homework: inputs["homework"].value,
+        midterm1: inputs["midterm1"].value,
+        midterm2: inputs["midterm2"].value,
+        finalExam: inputs["finalExam"].value,
+        extraCredit: inputs["extraCredit"].value,
+        quiz1: inputs["quiz1"].value,
+        quiz2: inputs["quiz2"].value,
+        quiz3: inputs["quiz3"].value,
+        quiz4: inputs["quiz4"].value,
+        quiz5: inputs["quiz5"].value,
+        quiz6: inputs["quiz6"].value,
+        quiz7: inputs["quiz7"].value,
+        quiz8: inputs["quiz8"].value,
+        quiz9: inputs["quiz9"].value,
+        quiz10: inputs["quiz10"].value,
+        quiz11: inputs["quiz11"].value,
+      },
+    });
+
+    alert("Saved");
+  });
+
+  document.querySelector("#load").addEventListener("click", async () => {
+    const scores = (await getDoc(userDocument)).data()["scores"];
+
+    inputs["attendance"].value = scores["attendance"];
+    inputs["homework"].value = scores["homework"];
+    inputs["midterm1"].value = scores["midterm1"];
+    inputs["midterm2"].value = scores["midterm2"];
+    inputs["finalExam"].value = scores["finalExam"];
+    inputs["extraCredit"].value = scores["extraCredit"];
+    inputs["quiz1"].value = scores["quiz1"];
+    inputs["quiz2"].value = scores["quiz2"];
+    inputs["quiz3"].value = scores["quiz3"];
+    inputs["quiz4"].value = scores["quiz4"];
+    inputs["quiz5"].value = scores["quiz5"];
+    inputs["quiz6"].value = scores["quiz6"];
+    inputs["quiz7"].value = scores["quiz7"];
+    inputs["quiz8"].value = scores["quiz8"];
+    inputs["quiz9"].value = scores["quiz9"];
+    inputs["quiz10"].value = scores["quiz10"];
+    inputs["quiz11"].value = scores["quiz11"];
+
+    calculate();
+  });
 }
 
 document.querySelectorAll("input").forEach((element) => {
