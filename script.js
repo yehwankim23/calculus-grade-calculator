@@ -66,4 +66,18 @@ document.querySelectorAll("input").forEach((element) => {
   });
 });
 
+document.querySelector("#reset").addEventListener("click", () => {
+  ["attendance", "homework", "midterm1", "midterm2", "finalExam"].forEach((id) => {
+    document.querySelector(`#${id}`).value = 100;
+  });
+
+  document.querySelector("#extraCredit").value = 0;
+
+  for (let number = 1; number <= 11; number++) {
+    document.querySelector(`#quiz${number}`).value = 10;
+  }
+
+  calculate();
+});
+
 calculate();

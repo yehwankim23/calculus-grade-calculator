@@ -14,12 +14,27 @@ div {
   justify-content: center;
 }
 
+button {
+  margin: 0 2.5vmin;
+  border: 1px solid #222;
+  border-radius: 1vmin;
+  padding: 0;
+  width: 15vmin;
+  height: 5vmin;
+  background-color: white;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 3vmin;
+  color: #222;
+  cursor: pointer;
+}
+
 input {
   border: 1px solid #222;
   border-radius: 1vmin;
   padding: 0;
   width: 15vmin;
   height: 5vmin;
+  background-color: white;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 3vmin;
   color: #222;
@@ -40,6 +55,12 @@ a {
   width: 100vmin;
   height: 20vmin;
   font-size: 5vmin;
+}
+
+.buttons {
+  height: 10vmin;
+  flex-direction: row;
+  align-items: flex-start;
 }
 
 .content {
