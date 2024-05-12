@@ -51,6 +51,25 @@ if (document.cookie.split("id=")[1]?.split(";")[0] === undefined && code !== und
   if (!(await getDoc(userDocument)).exists()) {
     await setDoc(userDocument, {
       name: kakaoResponse.properties.nickname,
+      scores: {
+        attendance: "100",
+        homework: "100",
+        midterm1: "100",
+        midterm2: "100",
+        finalExam: "100",
+        extraCredit: "0",
+        quiz1: "10",
+        quiz2: "10",
+        quiz3: "10",
+        quiz4: "10",
+        quiz5: "10",
+        quiz6: "10",
+        quiz7: "10",
+        quiz8: "10",
+        quiz9: "10",
+        quiz10: "10",
+        quiz11: "10",
+      },
     });
   }
 }
