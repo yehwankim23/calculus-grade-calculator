@@ -44,13 +44,13 @@ a {
 }
 
 .buttons {
+  width: 40vmin;
   height: 10vmin;
   flex-direction: row;
-  align-items: flex-start;
+  justify-content: space-around;
 }
 
 .button {
-  margin: 0 2.5vmin;
   border: 1px solid #222;
   border-radius: 1vmin;
   width: 15vmin;
