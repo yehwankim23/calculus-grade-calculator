@@ -17,22 +17,18 @@ const firestore = getFirestore(firebaseApp);
 
 const id = document.cookie.split("id=")[1]?.split(";")[0];
 
-if (id === undefined) {
+if (id !== undefined) {
   document.querySelector(".buttons").innerHTML = `
-    <a href="https://calculus-grade-calculator.pages.dev/login">
-      <div class="button">Login</div>
-    </a>
+    <div id="logout" class="button">Logout</div>
+    <div id="reset" class="button">Reset</div>
   `;
 
-  const content = document.querySelector(".content");
-
-  content.innerHTML = "";
-  content.style.height = "10vmin";
-} else {
   document.querySelector("#logout").addEventListener("click", () => {
     document.cookie = `id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     window.location.href = "https://calculus-grade-calculator.pages.dev";
   });
+
+  document.querySelector(".content").style.display = "flex";
 
   const inputs = {
     attendance: document.querySelector("#attendance"),
@@ -51,14 +47,13 @@ if (id === undefined) {
     quiz8: document.querySelector("#quiz8"),
     quiz9: document.querySelector("#quiz9"),
     quiz10: document.querySelector("#quiz10"),
-    quiz11: document.querySelector("#quiz11"),
   };
 
   function calculateFinalScore() {
     let quizSum = 0;
     let quizMin = 10;
 
-    for (let number = 1; number <= 11; number++) {
+    for (let number = 1; number <= 10; number++) {
       const quiz = Number(inputs[`quiz${number}`].value);
       quizSum += quiz;
 
@@ -138,7 +133,6 @@ if (id === undefined) {
   inputs["quiz8"].value = scores["quiz_08"];
   inputs["quiz9"].value = scores["quiz_09"];
   inputs["quiz10"].value = scores["quiz_10"];
-  inputs["quiz11"].value = scores["quiz_11"];
 
   calculateFinalScore();
 
@@ -162,7 +156,6 @@ if (id === undefined) {
         quiz_08: inputs["quiz8"].value,
         quiz_09: inputs["quiz9"].value,
         quiz_10: inputs["quiz10"].value,
-        quiz_11: inputs["quiz11"].value,
       },
     });
   }
@@ -180,7 +173,7 @@ if (id === undefined) {
 
     inputs["extraCredit"].value = 0;
 
-    for (let number = 1; number <= 11; number++) {
+    for (let number = 1; number <= 10; number++) {
       inputs[`quiz${number}`].value = 10;
     }
 

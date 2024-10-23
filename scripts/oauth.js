@@ -69,7 +69,6 @@ if (document.cookie.split("id=")[1]?.split(";")[0] === undefined && code !== und
         quiz_08: "10",
         quiz_09: "10",
         quiz_10: "10",
-        quiz_11: "10",
       },
     });
   }
