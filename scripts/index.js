@@ -134,7 +134,7 @@ if (id !== undefined) {
   inputs["quiz9"].value = scores["quiz_09"];
   inputs["quiz10"].value = scores["quiz_10"];
 
-  calculateFinalScore();
+  await saveScores(calculateFinalScore());
 
   async function saveScores(finalScore) {
     await updateDoc(userDocument, {
