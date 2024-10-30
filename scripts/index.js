@@ -166,7 +166,7 @@ if (id !== undefined) {
     });
   });
 
-  document.querySelector("#reset").addEventListener("click", () => {
+  document.querySelector("#reset").addEventListener("click", async () => {
     ["attendance", "homework", "midterm1", "midterm2", "finalExam"].forEach((id) => {
       inputs[id].value = 100;
     });
@@ -177,6 +177,6 @@ if (id !== undefined) {
       inputs[`quiz${number}`].value = 10;
     }
 
-    calculateFinalScore();
+    await saveScores(calculateFinalScore());
   });
 }
