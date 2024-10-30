@@ -67,7 +67,7 @@ if (id !== undefined) {
     let option1 =
       Number(inputs["attendance"].value) * 0.05 +
       Number(inputs["homework"].value) * 0.1 +
-      Number(quizSum) * 0.2 +
+      Number((quizSum / 90) * 100) * 0.2 +
       Number(inputs["extraCredit"].value);
 
     let option2 = option1;
