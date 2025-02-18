@@ -87,27 +87,27 @@ if (id !== undefined) {
     document.querySelector("#option2").innerText = option2.toString().slice(0, 5);
 
     document.querySelectorAll(".grade").forEach((element) => {
-      element.classList.remove("final-grade");
+      element.classList.remove("red", "yellow", "green", "blue");
     });
 
     const finalScore = Math.max(option1, option2);
 
     if (finalScore >= 94) {
-      document.querySelector("#a").classList.add("final-grade");
+      document.querySelector("#a").classList.add("blue");
     } else if (finalScore >= 90) {
-      document.querySelector("#a-minus").classList.add("final-grade");
+      document.querySelector("#a-minus").classList.add("blue");
     } else if (finalScore >= 87) {
-      document.querySelector("#b-plus").classList.add("final-grade");
+      document.querySelector("#b-plus").classList.add("green");
     } else if (finalScore >= 83) {
-      document.querySelector("#b").classList.add("final-grade");
+      document.querySelector("#b").classList.add("green");
     } else if (finalScore >= 80) {
-      document.querySelector("#b-minus").classList.add("final-grade");
+      document.querySelector("#b-minus").classList.add("green");
     } else if (finalScore >= 77) {
-      document.querySelector("#c-plus").classList.add("final-grade");
+      document.querySelector("#c-plus").classList.add("yellow");
     } else if (finalScore >= 73) {
-      document.querySelector("#c").classList.add("final-grade");
+      document.querySelector("#c").classList.add("yellow");
     } else if (finalScore >= 70) {
-      document.querySelector("#c-minus").classList.add("final-grade");
+      document.querySelector("#c-minus").classList.add("red");
     }
 
     return finalScore.toString().slice(0, 5);

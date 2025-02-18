@@ -1,9 +1,9 @@
 body {
   margin: 0;
-  background-color: #ddd;
+  background-color: #202020;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 3vmin;
-  color: #222;
+  color: #e0e0e0;
   line-height: 1.25;
 }
 
@@ -15,21 +15,21 @@ div {
 }
 
 input {
-  border: 1px solid #222;
+  border: 1px solid #e0e0e0;
   border-radius: 1vmin;
   padding: 0;
   width: 15vmin;
   height: 5vmin;
-  background-color: white;
+  background-color: #404040;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 3vmin;
-  color: #222;
+  color: #e0e0e0;
   text-align: center;
 }
 
 a {
   font-size: 2vmin;
-  color: #888;
+  color: #808080;
   text-decoration: none;
 }
 
@@ -51,13 +51,13 @@ a {
 }
 
 .button {
-  border: 1px solid #222;
+  border: 1px solid #e0e0e0;
   border-radius: 1vmin;
   width: 15vmin;
   height: 5vmin;
-  background-color: white;
+  background-color: #404040;
   font-size: 3vmin;
-  color: #222;
+  color: #e0e0e0;
   cursor: pointer;
 }
 
@@ -82,12 +82,27 @@ a {
 
 .grade {
   height: 4vmin;
-  color: #888;
+  color: #808080;
 }
 
-.final-grade {
+.red {
   height: 4vmin;
-  color: #222;
+  color: #ff8888;
+}
+
+.yellow {
+  height: 4vmin;
+  color: #ffff88;
+}
+
+.green {
+  height: 4vmin;
+  color: #88ff88;
+}
+
+.blue {
+  height: 4vmin;
+  color: #8888ff;
 }
 
 .footer {
