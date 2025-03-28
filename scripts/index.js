@@ -18,56 +18,90 @@ const firestore = getFirestore(firebaseApp);
 const id = document.cookie.split("id=")[1]?.split(";")[0];
 
 if (id !== undefined) {
+  const userDocument = doc(firestore, "users", id);
+
+  function logout() {
+    document.cookie = `id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    window.location.href = "https://calculus-grade-calculator.pages.dev";
+  }
+
+  if (!(await getDoc(userDocument)).exists()) {
+    logout();
+  }
+
   document.querySelector(".buttons").innerHTML = `
     <div id="logout" class="button">Logout</div>
     <div id="reset" class="button">Reset</div>
   `;
 
   document.querySelector("#logout").addEventListener("click", () => {
-    document.cookie = `id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    window.location.href = "https://calculus-grade-calculator.pages.dev";
+    logout();
   });
 
   document.querySelector(".content").style.display = "flex";
 
-  const inputs = {
+  const settings = (await getDoc(doc(firestore, "settings", "settings"))).data();
+  const quizCount = settings["quiz_count"];
+
+  const odd = document.querySelector("#odd");
+  const even = document.querySelector("#even");
+
+  for (let number = 1; number <= quizCount; number++) {
+    (number % 2 === 0 ? even : odd).innerHTML += `
+      <div class="row">
+        <span class="title">Quiz ${number}</span>
+        <input id="quiz${number}" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
+      </div>
+    `;
+  }
+
+  const scores = (await getDoc(userDocument)).data()["scores"];
+  let quizzes = scores["7_quizzes"];
+
+  for (let count = quizzes.length; count < quizCount; count++) {
+    quizzes.push("10");
+  }
+
+  await updateDoc(userDocument, { "scores.7_quizzes": quizzes });
+
+  let inputs = {
     attendance: document.querySelector("#attendance"),
     homework: document.querySelector("#homework"),
     midterm1: document.querySelector("#midterm1"),
     midterm2: document.querySelector("#midterm2"),
     finalExam: document.querySelector("#finalExam"),
     extraCredit: document.querySelector("#extraCredit"),
-    quiz1: document.querySelector("#quiz1"),
-    quiz2: document.querySelector("#quiz2"),
-    quiz3: document.querySelector("#quiz3"),
-    quiz4: document.querySelector("#quiz4"),
-    quiz5: document.querySelector("#quiz5"),
-    quiz6: document.querySelector("#quiz6"),
-    quiz7: document.querySelector("#quiz7"),
-    quiz8: document.querySelector("#quiz8"),
-    quiz9: document.querySelector("#quiz9"),
-    quiz10: document.querySelector("#quiz10"),
+    quizzes: [],
   };
 
+  for (let number = 1; number <= quizCount; number++) {
+    inputs["quizzes"].push(document.querySelector(`#quiz${number}`));
+  }
+
   function calculateFinalScore() {
+    let quizScores = [];
     let quizSum = 0;
-    let quizMin = 10;
 
-    for (let number = 1; number <= 10; number++) {
-      const quiz = Number(inputs[`quiz${number}`].value);
+    for (let index = 0; index < quizCount; index++) {
+      const quiz = Number(inputs["quizzes"][index].value);
+      quizScores.push(quiz);
       quizSum += quiz;
-
-      if (quiz < quizMin) {
-        quizMin = quiz;
-      }
     }
 
-    quizSum -= quizMin;
+    quizScores.sort((a, b) => {
+      return a - b;
+    });
+
+    const quizDrop = settings["quiz_drop"];
+
+    for (let index = 0; index < quizDrop; index++) {
+      quizSum -= quizScores[index];
+    }
 
     let option1 =
-      Number(inputs["attendance"].value) * 0.05 +
-      Number(inputs["homework"].value) * 0.1 +
-      Number((quizSum / 90) * 100) * 0.2 +
+      (Number(inputs["attendance"].value) * settings["attendance"]) / 100 +
+      (Number(inputs["homework"].value) * settings["homework"]) / 100 +
+      (Number((quizSum / (quizCount - quizDrop)) * 10) * settings["quiz"]) / 100 +
       Number(inputs["extraCredit"].value);
 
     let option2 = option1;
@@ -76,89 +110,82 @@ if (id !== undefined) {
     const midterm2 = Number(inputs["midterm2"].value);
     const finalExam = Number(inputs["finalExam"].value);
 
-    option1 += midterm1 * 0.2 + midterm2 * 0.2 + finalExam * 0.25;
+    option1 +=
+      (midterm1 * settings["midterm"]) / 100 +
+      (midterm2 * settings["midterm"]) / 100 +
+      (finalExam * settings["final_exam_1"]) / 100;
 
     const lowerMidterm = Math.min(midterm1, midterm2);
     const higherMidterm = Math.max(midterm1, midterm2);
 
-    option2 += lowerMidterm * 0.15 + higherMidterm * 0.2 + finalExam * 0.3;
+    option2 +=
+      (lowerMidterm * settings["lower_midterm"]) / 100 +
+      (higherMidterm * settings["higher_midterm"]) / 100 +
+      (finalExam * settings["final_exam_2"]) / 100;
 
     document.querySelector("#option1").innerText = option1.toString().slice(0, 5);
     document.querySelector("#option2").innerText = option2.toString().slice(0, 5);
 
     document.querySelectorAll(".grade").forEach((element) => {
-      element.classList.remove("final-grade");
+      element.classList.remove("red", "orange", "green", "blue");
     });
 
     const finalScore = Math.max(option1, option2);
 
     if (finalScore >= 94) {
-      document.querySelector("#a").classList.add("final-grade");
+      document.querySelector("#a").classList.add("blue");
     } else if (finalScore >= 90) {
-      document.querySelector("#a-minus").classList.add("final-grade");
+      document.querySelector("#a-minus").classList.add("blue");
     } else if (finalScore >= 87) {
-      document.querySelector("#b-plus").classList.add("final-grade");
+      document.querySelector("#b-plus").classList.add("green");
     } else if (finalScore >= 83) {
-      document.querySelector("#b").classList.add("final-grade");
+      document.querySelector("#b").classList.add("green");
     } else if (finalScore >= 80) {
-      document.querySelector("#b-minus").classList.add("final-grade");
+      document.querySelector("#b-minus").classList.add("green");
     } else if (finalScore >= 77) {
-      document.querySelector("#c-plus").classList.add("final-grade");
+      document.querySelector("#c-plus").classList.add("orange");
     } else if (finalScore >= 73) {
-      document.querySelector("#c").classList.add("final-grade");
+      document.querySelector("#c").classList.add("orange");
     } else if (finalScore >= 70) {
-      document.querySelector("#c-minus").classList.add("final-grade");
+      document.querySelector("#c-minus").classList.add("red");
     }
 
     return finalScore.toString().slice(0, 5);
   }
 
-  const userDocument = doc(firestore, "users", id);
+  inputs["attendance"].value = scores["1_attendance"];
+  inputs["homework"].value = scores["2_homework"];
+  inputs["midterm1"].value = scores["3_midterm_1"];
+  inputs["midterm2"].value = scores["4_midterm_2"];
+  inputs["finalExam"].value = scores["5_final_exam"];
+  inputs["extraCredit"].value = scores["6_extra_credit"];
 
-  const scores = (await getDoc(userDocument)).data()["scores"];
-
-  inputs["attendance"].value = scores["attendance"];
-  inputs["homework"].value = scores["homework"];
-  inputs["midterm1"].value = scores["midterm_exam_1"];
-  inputs["midterm2"].value = scores["midterm_exam_2"];
-  inputs["finalExam"].value = scores["final_exam"];
-  inputs["extraCredit"].value = scores["extra_credit"];
-  inputs["quiz1"].value = scores["quiz_01"];
-  inputs["quiz2"].value = scores["quiz_02"];
-  inputs["quiz3"].value = scores["quiz_03"];
-  inputs["quiz4"].value = scores["quiz_04"];
-  inputs["quiz5"].value = scores["quiz_05"];
-  inputs["quiz6"].value = scores["quiz_06"];
-  inputs["quiz7"].value = scores["quiz_07"];
-  inputs["quiz8"].value = scores["quiz_08"];
-  inputs["quiz9"].value = scores["quiz_09"];
-  inputs["quiz10"].value = scores["quiz_10"];
-
-  await saveScores(calculateFinalScore());
+  for (let index = 0; index < quizCount; index++) {
+    inputs["quizzes"][index].value = scores["7_quizzes"][index];
+  }
 
   async function saveScores(finalScore) {
+    let quizzes = [];
+
+    for (let index = 0; index < quizCount; index++) {
+      quizzes.push(inputs["quizzes"][index].value);
+    }
+
     await updateDoc(userDocument, {
       scores: {
-        final_score: finalScore,
-        attendance: inputs["attendance"].value,
-        homework: inputs["homework"].value,
-        midterm_exam_1: inputs["midterm1"].value,
-        midterm_exam_2: inputs["midterm2"].value,
-        final_exam: inputs["finalExam"].value,
-        extra_credit: inputs["extraCredit"].value,
-        quiz_01: inputs["quiz1"].value,
-        quiz_02: inputs["quiz2"].value,
-        quiz_03: inputs["quiz3"].value,
-        quiz_04: inputs["quiz4"].value,
-        quiz_05: inputs["quiz5"].value,
-        quiz_06: inputs["quiz6"].value,
-        quiz_07: inputs["quiz7"].value,
-        quiz_08: inputs["quiz8"].value,
-        quiz_09: inputs["quiz9"].value,
-        quiz_10: inputs["quiz10"].value,
+        "0_final_score": finalScore,
+        "1_attendance": inputs["attendance"].value,
+        "2_homework": inputs["homework"].value,
+        "3_midterm_1": inputs["midterm1"].value,
+        "4_midterm_2": inputs["midterm2"].value,
+        "5_final_exam": inputs["finalExam"].value,
+        "6_extra_credit": inputs["extraCredit"].value,
+        "7_quizzes": quizzes,
       },
     });
   }
+
+  await saveScores(calculateFinalScore());
 
   document.querySelectorAll("input").forEach((element) => {
     element.addEventListener("input", async () => {
@@ -173,8 +200,8 @@ if (id !== undefined) {
 
     inputs["extraCredit"].value = 0;
 
-    for (let number = 1; number <= 10; number++) {
-      inputs[`quiz${number}`].value = 10;
+    for (let index = 0; index < quizCount; index++) {
+      inputs["quizzes"][index].value = 10;
     }
 
     await saveScores(calculateFinalScore());

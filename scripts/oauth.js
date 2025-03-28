@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import axios from "axios";
 
 const firebaseApp = initializeApp({
@@ -47,28 +47,22 @@ if (document.cookie.split("id=")[1]?.split(";")[0] === undefined && code !== und
   ).toUTCString()}; path=/;`;
 
   const userDocument = doc(firestore, "users", id);
+  const nickname = kakaoResponse.properties.nickname;
 
-  if (!(await getDoc(userDocument)).exists()) {
+  if ((await getDoc(userDocument)).exists()) {
+    await updateDoc(userDocument, { nicknames: arrayUnion(nickname) });
+  } else {
     await setDoc(userDocument, {
-      kakao_nickname: kakaoResponse.properties.nickname,
+      nicknames: [nickname],
       scores: {
-        final_score: "100",
-        attendance: "100",
-        homework: "100",
-        midterm_exam_1: "100",
-        midterm_exam_2: "100",
-        final_exam: "100",
-        extra_credit: "0",
-        quiz_01: "10",
-        quiz_02: "10",
-        quiz_03: "10",
-        quiz_04: "10",
-        quiz_05: "10",
-        quiz_06: "10",
-        quiz_07: "10",
-        quiz_08: "10",
-        quiz_09: "10",
-        quiz_10: "10",
+        "0_final_score": "100",
+        "1_attendance": "100",
+        "2_homework": "100",
+        "3_midterm_1": "100",
+        "4_midterm_2": "100",
+        "5_final_exam": "100",
+        "6_extra_credit": "0",
+        "7_quizzes": [],
       },
     });
   }
