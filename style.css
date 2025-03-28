@@ -1,7 +1,18 @@
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix)
+      format("embedded-opentype"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff)
+      format("woff"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf)
+      format("truetype");
+}
+
 body {
   margin: 0;
   background-color: #ddd;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "NanumSquareNeo", sans-serif;
   font-size: 3vmin;
   color: #222;
   line-height: 1.25;
@@ -80,16 +91,39 @@ a {
   height: 5vmin;
 }
 
+#grade {
+  height: 5vmin;
+}
+
 .grade {
   height: 4vmin;
   color: #888;
 }
 
-.final-grade {
+.red {
   height: 4vmin;
-  color: #222;
+  font-weight: bold;
+  color: #ea4335;
+}
+
+.orange {
+  height: 4vmin;
+  font-weight: bold;
+  color: #ff6d01;
+}
+
+.green {
+  height: 4vmin;
+  font-weight: bold;
+  color: #34a853;
+}
+
+.blue {
+  height: 4vmin;
+  font-weight: bold;
+  color: #4285f4;
 }
 
 .footer {
-  height: 10vmin;
+  height: 15vmin;
 }

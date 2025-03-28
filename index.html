@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculus Grade Calculator</title>
     <link rel="icon" href="icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="style.css" />
     <script src="scripts/index.bundle.js" defer></script>
   </head>
@@ -32,7 +26,7 @@
             <span class="title">Option 2</span>
             <span id="option2"></span>
           </div>
-          <span>Grade</span>
+          <span id="grade">Grade</span>
           <span id="a" class="grade">A (94)</span>
           <span id="a-minus" class="grade">A- (90)</span>
           <span id="b-plus" class="grade">B+ (87)</span>
@@ -68,54 +62,12 @@
             <input id="extraCredit" type="number" inputmode="decimal" min="0" value="0" />
           </div>
         </div>
-        <div class="column">
-          <div class="row">
-            <span class="title">Quiz 1</span>
-            <input id="quiz1" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-          <div class="row">
-            <span class="title">Quiz 3</span>
-            <input id="quiz3" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-          <div class="row">
-            <span class="title">Quiz 5</span>
-            <input id="quiz5" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-          <div class="row">
-            <span class="title">Quiz 7</span>
-            <input id="quiz7" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-          <div class="row">
-            <span class="title">Quiz 9</span>
-            <input id="quiz9" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-        </div>
-        <div class="column">
-          <div class="row">
-            <span class="title">Quiz 2</span>
-            <input id="quiz2" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-          <div class="row">
-            <span class="title">Quiz 4</span>
-            <input id="quiz4" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-          <div class="row">
-            <span class="title">Quiz 6</span>
-            <input id="quiz6" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-          <div class="row">
-            <span class="title">Quiz 8</span>
-            <input id="quiz8" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-          <div class="row">
-            <span class="title">Quiz 10</span>
-            <input id="quiz10" class="quiz" type="number" inputmode="decimal" min="0" value="10" />
-          </div>
-        </div>
+        <div id="odd" class="column"></div>
+        <div id="even" class="column"></div>
       </div>
       <div class="footer">
         <a href="https://github.com/yehwankim23/calculus-grade-calculator" target="_blank">
-          &copy; 2024 김예환 Ye-Hwan Kim (Sam)
+          &copy; 2024-2025 김예환 Ye-Hwan Kim (Sam)
         </a>
       </div>
     </div>
