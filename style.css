@@ -25,6 +25,16 @@ div {
   justify-content: center;
 }
 
+table {
+  font-size: 2vmin;
+}
+
+th,
+td {
+  padding: 1vmin;
+  text-align: center;
+}
+
 input {
   border: 1px solid #222;
   border-radius: 1vmin;
@@ -44,17 +54,17 @@ a {
   text-decoration: none;
 }
 
-.container {
+#container {
   margin: auto;
 }
 
-.header {
+#header {
   width: 100vmin;
   height: 20vmin;
   font-size: 5vmin;
 }
 
-.buttons {
+#buttons {
   width: 40vmin;
   height: 10vmin;
   flex-direction: row;
@@ -72,7 +82,11 @@ a {
   cursor: pointer;
 }
 
-.content {
+#settings {
+  height: 20vmin;
+}
+
+#content {
   display: none;
   height: 75vmin;
   flex-direction: row;
@@ -124,6 +138,6 @@ a {
   color: #4285f4;
 }
 
-.footer {
+#footer {
   height: 15vmin;
 }
