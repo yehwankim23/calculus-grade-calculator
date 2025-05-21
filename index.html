@@ -9,14 +9,42 @@
     <script src="scripts/index.bundle.js" defer></script>
   </head>
   <body>
-    <div class="container">
-      <div class="header">Calculus Grade Calculator</div>
-      <div class="buttons">
+    <div id="container">
+      <div id="header">Calculus Grade Calculator</div>
+      <div id="buttons">
         <a href="https://calculus-grade-calculator.pages.dev/login">
           <div class="button">Login</div>
         </a>
       </div>
-      <div class="content">
+      <div id="settings">
+        <table>
+          <tr>
+            <td>Attendance</td>
+            <td>Homework</td>
+            <td>Quizzes<br /><span id="quizDrop"></span></td>
+            <td>Lower<br />Midterm</td>
+            <td>Higher<br />Midterm</td>
+            <td>Final Exam</td>
+          </tr>
+          <tr>
+            <td id="option1Attendance"></td>
+            <td id="option1Homework"></td>
+            <td id="option1Quizzes"></td>
+            <td id="option1LowerMidterm"></td>
+            <td id="option1HigherMidterm"></td>
+            <td id="option1FinalExam"></td>
+          </tr>
+          <tr>
+            <td id="option2Attendance"></td>
+            <td id="option2Homework"></td>
+            <td id="option2Quizzes"></td>
+            <td id="option2LowerMidterm"></td>
+            <td id="option2HigherMidterm"></td>
+            <td id="option2FinalExam"></td>
+          </tr>
+        </table>
+      </div>
+      <div id="content">
         <div class="column">
           <div class="row">
             <span class="title">Option 1</span>
@@ -65,7 +93,7 @@
         <div id="odd" class="column"></div>
         <div id="even" class="column"></div>
       </div>
-      <div class="footer">
+      <div id="footer">
         <a href="https://github.com/yehwankim23/calculus-grade-calculator" target="_blank">
           &copy; 2024-2025 김예환 Ye-Hwan Kim (Sam)
         </a>

@@ -15,6 +15,25 @@ const firebaseApp = initializeApp({
 const analytics = getAnalytics(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
+const settings = (await getDoc(doc(firestore, "settings", "settings"))).data();
+
+const quizDrop = settings["quiz_drop"];
+document.querySelector("#quizDrop").innerText = `(drops ${quizDrop})`;
+
+document.querySelector("#option1Attendance").innerText = `${settings["attendance"]}%`;
+document.querySelector("#option1Homework").innerText = `${settings["homework"]}%`;
+document.querySelector("#option1Quizzes").innerText = `${settings["quiz"]}%`;
+document.querySelector("#option1LowerMidterm").innerText = `${settings["midterm"]}%`;
+document.querySelector("#option1HigherMidterm").innerText = `${settings["midterm"]}%`;
+document.querySelector("#option1FinalExam").innerText = `${settings["final_exam_1"]}%`;
+
+document.querySelector("#option2Attendance").innerText = `${settings["attendance"]}%`;
+document.querySelector("#option2Homework").innerText = `${settings["homework"]}%`;
+document.querySelector("#option2Quizzes").innerText = `${settings["quiz"]}%`;
+document.querySelector("#option2LowerMidterm").innerText = `${settings["lower_midterm"]}%`;
+document.querySelector("#option2HigherMidterm").innerText = `${settings["higher_midterm"]}%`;
+document.querySelector("#option2FinalExam").innerText = `${settings["final_exam_2"]}%`;
+
 const id = document.cookie.split("id=")[1]?.split(";")[0];
 
 if (id !== undefined) {
@@ -29,7 +48,7 @@ if (id !== undefined) {
     logout();
   }
 
-  document.querySelector(".buttons").innerHTML = `
+  document.querySelector("#buttons").innerHTML = `
     <div id="logout" class="button">Logout</div>
     <div id="reset" class="button">Reset</div>
   `;
@@ -38,9 +57,8 @@ if (id !== undefined) {
     logout();
   });
 
-  document.querySelector(".content").style.display = "flex";
+  document.querySelector("#content").style.display = "flex";
 
-  const settings = (await getDoc(doc(firestore, "settings", "settings"))).data();
   const quizCount = settings["quiz_count"];
 
   const odd = document.querySelector("#odd");
@@ -91,8 +109,6 @@ if (id !== undefined) {
     quizScores.sort((a, b) => {
       return a - b;
     });
-
-    const quizDrop = settings["quiz_drop"];
 
     for (let index = 0; index < quizDrop; index++) {
       quizSum -= quizScores[index];
