@@ -184,18 +184,18 @@ if (id !== undefined) {
     let quizzes = [];
 
     for (let index = 0; index < quizCount; index++) {
-      quizzes.push(inputs["quizzes"][index].value);
+      quizzes.push(inputs["quizzes"][index].value || "0");
     }
 
     await updateDoc(userDocument, {
       scores: {
         "0_final_score": finalScore,
-        "1_attendance": inputs["attendance"].value,
-        "2_homework": inputs["homework"].value,
-        "3_midterm_1": inputs["midterm1"].value,
-        "4_midterm_2": inputs["midterm2"].value,
-        "5_final_exam": inputs["finalExam"].value,
-        "6_extra_credit": inputs["extraCredit"].value,
+        "1_attendance": inputs["attendance"].value || "0",
+        "2_homework": inputs["homework"].value || "0",
+        "3_midterm_1": inputs["midterm1"].value || "0",
+        "4_midterm_2": inputs["midterm2"].value || "0",
+        "5_final_exam": inputs["finalExam"].value || "0",
+        "6_extra_credit": inputs["extraCredit"].value || "0",
         "7_quizzes": quizzes,
       },
     });
