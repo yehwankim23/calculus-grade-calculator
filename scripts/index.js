@@ -3,13 +3,13 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 
 const firebaseApp = initializeApp({
-  apiKey: "AIzaSyBsZDKyla0iRBlPvzAH7nnM2g4yZ0Z32qg",
+  apiKey: "AIzaSyABzFOxFtnCJMMKCNmb6ePKw_-JJD61n9I",
   authDomain: "calculus-grade-calculato-f5e00.firebaseapp.com",
   projectId: "calculus-grade-calculato-f5e00",
-  storageBucket: "calculus-grade-calculato-f5e00.appspot.com",
+  storageBucket: "calculus-grade-calculato-f5e00.firebasestorage.app",
   messagingSenderId: "300676061",
-  appId: "1:300676061:web:a4d73fd75da03b1b873c34",
-  measurementId: "G-34HY7HMRHN",
+  appId: "1:300676061:web:9bf6e05888a1e3cd873c34",
+  measurementId: "G-6CZ991DC7T",
 });
 
 const analytics = getAnalytics(firebaseApp);
